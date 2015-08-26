@@ -586,9 +586,9 @@ void INTERRUPT (GPTA0_SRN22INT) GPTA0_viSRN22(void)
     GPTA0_SRSC2 = 0x00000002; //  reset LTC1 service request bit
 
     // USER CODE BEGIN (SRN22,4)
-    __asm(  " svlcx        \n"
+   /* __asm(  " svlcx        \n"
             " jla stm_src0 \n"
-            " rslcx"::"a"(pthread_running->next));
+            " rslcx"::"a"(pthread_running->next)); */
     // USER CODE END
 
  // }

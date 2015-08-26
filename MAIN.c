@@ -295,7 +295,7 @@ void MAIN_vInit(void)
   ///  -----------------------------------------------------------------------
 
   ///  - the CPU interrupt system is globally enabled
-  ENABLE();
+  //ENABLE();
 
   //// - the PCP interrupt system is globally disabled
 

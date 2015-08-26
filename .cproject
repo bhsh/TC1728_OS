@@ -21,7 +21,7 @@
 							<builder buildPath="${workspace_loc:/TC1728_OS/Debug}" id="com.tasking.ctc.builder.abs.debug.1778982631" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="TASKING TriCore Makefile generator" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.tasking.ctc.builder.abs.debug"/>
 							<tool id="com.tasking.ctc.cc.abs.debug.247232371" name="C/C++ Compiler" superClass="com.tasking.ctc.cc.abs.debug">
 								<option id="com.tasking.ctc.cc.pr36858.168751374" name="workaround for PR36858" superClass="com.tasking.ctc.cc.pr36858" value="true" valueType="string"/>
-								<option id="com.tasking.ctc.cc.noTaskingSfr.1270113626" superClass="com.tasking.ctc.cc.noTaskingSfr" value="false" valueType="boolean"/>
+								<option id="com.tasking.ctc.cc.noTaskingSfr.1270113626" name="Automatic inclusion of '.sfr' file" superClass="com.tasking.ctc.cc.noTaskingSfr" value="false" valueType="boolean"/>
 								<inputType id="com.tasking.ctc.cppInputType.1228793703" name="C++" superClass="com.tasking.ctc.cppInputType"/>
 								<inputType id="com.tasking.ctc.cpp.cInputType.282001205" name="C" superClass="com.tasking.ctc.cpp.cInputType"/>
 								<inputType id="com.tasking.ctc.cc.msInputType.1695291486" name="MS" superClass="com.tasking.ctc.cc.msInputType"/>
@@ -30,8 +30,8 @@
 								<inputType id="com.tasking.ctc.asmInputType.902601313" name="ASM" superClass="com.tasking.ctc.asmInputType"/>
 							</tool>
 							<tool id="com.tasking.ctc.lk.abs.debug.1245785803" name="Linker" superClass="com.tasking.ctc.lk.abs.debug">
-								<option id="com.tasking.ctc.lk.mapFile.mapFile.2031803365" superClass="com.tasking.ctc.lk.mapFile.mapFile" value="true" valueType="boolean"/>
-								<option id="com.tasking.ctc.lk.outputFormat.ihex.1333145946" superClass="com.tasking.ctc.lk.outputFormat.ihex" value="true" valueType="boolean"/>
+								<option id="com.tasking.ctc.lk.mapFile.mapFile.2031803365" name="Generate map file (.map)" superClass="com.tasking.ctc.lk.mapFile.mapFile" value="true" valueType="boolean"/>
+								<option id="com.tasking.ctc.lk.outputFormat.ihex.1333145946" name="Generate Intel Hex format file" superClass="com.tasking.ctc.lk.outputFormat.ihex" value="true" valueType="boolean"/>
 								<inputType id="com.tasking.ctc.lkObjInputType.957714577" name="OBJ" superClass="com.tasking.ctc.lkObjInputType"/>
 								<inputType id="com.tasking.ctc.lkLibInputType.1422324427" name="LIB" superClass="com.tasking.ctc.lkLibInputType"/>
 							</tool>

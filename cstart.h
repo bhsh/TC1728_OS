@@ -202,7 +202,7 @@
 #define __CBS_MCDBBS_INIT       0
 #define __CBS_MCDBBS_VALUE      0x00000000
 #define __SBCU_CON_INIT         0
-#define __SBCU_CON_VALUE        0x4009ffff
+#define __SBCU_CON_VALUE        0x4000ffff
 #define __EBU_BUSRAP1_INIT      0
 #define __EBU_BUSRAP1_VALUE     0x00000000
 #define __EBU_BUSRAP0_INIT      0

@@ -70,10 +70,12 @@ inline void pthread_start_np(void) {
     extern  uint32_t pthread_runnable;
     extern  pthread_t pthread_running;
     extern  pthread_t pthread_runnable_threads[PTHREAD_PRIO_MAX];
+    extern  pthread_t thread_test;
+    extern  uint32_t lcx_test;
 
     pthread_t thread;
     //assert(pthread_runnable != 0);
-    thread = pthread_runnable_threads[31 - __clz(pthread_runnable)]; //  get ready thread with highest priority ready
+   // thread = pthread_runnable_threads[31 - __clz(pthread_runnable)]; //  get ready thread with highest priority ready
    // assert(thread);
     //assert(thread->lcx);
 
@@ -82,14 +84,14 @@ inline void pthread_start_np(void) {
    //     STM_SRC0.B.SRE = 1; // STOREBIT(STM_SRC0, 12, 1);
    // else
    //    STM_SRC0.B.SRE = 0; // STOREBIT(STM_SRC0, 12, 0);
-    __enable();
+   // __enable();
 
    // PTHREAD_SWAP_HANDLER(thread,pthread_running);
-    pthread_running = thread;//
+    //pthread_running = thread;//
     __dsync();
-    __mtcr(0xfe00, thread->lcx);
+    __mtcr(0xfe00, lcx_test);
     __rslcx();
-    __asm(" mov d2,#0");//
+    __asm(" mov d2,#0");
     __asm(" rfe");
 }
 
