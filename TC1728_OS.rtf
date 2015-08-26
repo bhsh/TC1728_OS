@@ -1,0 +1,596 @@
+{\rtf1\ansi\deff0\deftab720{\fonttbl{\f0\fnil MS Sans Serif;}{\f1\fnil\fcharset2 Symbol;}{\f2\fswiss\fprq2 System;}{\f3\fnil Times New Roman;}{\f4\fswiss\fprq2 Arial;}}
+{\colortbl\red0\green0\blue0;\red0\green0\blue128;\red255\green0\blue0;}
+\deflang1031\pard\plain\f4\fs28\cf0 DAvE's Project Documentation
+\par \plain\f4\fs22\cf0
+\par \plain\f4\fs22\cf0 Project: \tab\tab\b TC1728_OS.dav
+\par 
+\par \plain\f4\fs22\cf0 Controller: \tab\tab\b TC1728
+\par \plain\f4\fs22\cf0 Compiler: \tab\tab\b Tasking 3.5r1
+\par 
+\par \plain\f4\fs22\cf0 Date: \tab\tab\tab\b 8/26/2015 16:16:24
+\par 
+\par 
+\par \plain\f4\fs22\cf2\b Please read this document carefully and note
+\par \plain\f4\fs22\cf2\b the red-colored hints.
+\par 
+\par \plain\f4\fs22\cf2\b If you miss a file in the generated files list
+\par \plain\f4\fs22\cf2\b maybe you have forgotten to select the
+\par \plain\f4\fs22\cf2\b initialisation function of the related module.
+\par 
+\par \plain\f4\fs22\cf0 Generated Files:
+\plain\f4\fs20\cf0\b
+\par \tab\tab\tab TC1728REGS.H
+\par \tab\tab\tab MAIN.H
+\par \tab\tab\tab MAIN.C
+\par \tab\tab\tab IO.H
+\par \tab\tab\tab IO.C
+\par \tab\tab\tab GPTA0.H
+\par \tab\tab\tab GPTA0.C
+\par 
+\par 
+\par \plain\f4\fs20\cf0
+\par \plain\f4\fs28\cf0\ul Project Settings
+\par
+\par \plain\f4\fs24\cf0 Macros:\f4\fs20\cf0
+\par
+\par
+\par \plain\f4\fs20\cf0 \tab Macro:
+\par \plain\f4\fs20\cf0\b \tab \tab MAIN_vSetENDINIT()\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This macro sets the EndInit bit, which controls access to
+
+\par \tab \tab system critical registers. Setting the EndInit bit locks
+
+\par \tab \tab all EndInit protected registers.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par
+\par
+\par \plain\f4\fs20\cf0 \tab Macro:
+\par \plain\f4\fs20\cf0\b \tab \tab MAIN_vResetENDINIT()\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This macro clears the EndInit bit, which controls access to
+
+\par \tab \tab system critical registers. Clearing the EndInit bit unlocks
+
+\par \tab \tab all EndInit protected registers. Modifications of the
+
+\par \tab \tab EndInit bit are monitored by the watchdog timer such that
+
+\par \tab \tab after clearing EndInit, the watchdog timer enters a defined
+
+\par \tab \tab time-out mode; EndInit must be set again before the
+
+\par \tab \tab time-out expires.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par \plain\f4\fs24\cf0 Functions:\f4\fs20\cf0
+\par
+\par \plain\f4\fs20\cf0 \tab Function:
+\par \plain\f4\fs20\cf0\b \tab \tab void MAIN_vInit(void)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This function initializes the microcontroller.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par
+\par \plain\f4\fs20\cf0 \tab Function:
+\par \plain\f4\fs20\cf0\b \tab \tab void MAIN_vWriteWDTCON0(uword uwValue)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This function writes the parameter uwValue to the WDT_CON0
+
+\par \tab \tab register which is password protected.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab uwValue:
+
+\par \tab \tab Value for the WDTCON0 register
+
+\par
+\par \plain\f4\fs20\cf0 \tab Function:
+\par \plain\f4\fs20\cf0\b \tab \tab sword main(void)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This is the main function.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b Returns an sword value\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par
+\par \plain\f4\fs24\cf0 Initialization:
+\par \plain\f4\fs20\cf0\b
+\par
+\tab \cf2Begin of Important Settings for the Start-Up File\cf0\par 
+\tab All following settings must be set in the start-up file. You can use\par 
+\tab DAvE's project file (*.dpt) to include this register values into your\par 
+\tab compiler EDE.\par 
+\par 
+\tab System Peripheral Bus Control Unit (SBCU):\par 
+\tab SBCU starvation protection is enabled\par 
+\tab the debug trace is enabled. Error information is captured in\par 
+\tab register SBCU_EADD, SBCU_EDAT and SBCU_ECON\par 
+\tab sample period of request for starvation protection: 64\par 
+\tab SBCU bus time-out value: 65536 cycles\par 
+\par 
+\tab \cf2this register must be set in the start-up file\cf0\par 
+\tab \cf2SBCU_CON  =  0x4009FFFF;\cf0\par 
+\par 
+\tab Data Memory Interface (DMI):\par 
+\tab - No Data Cache\par 
+\tab - 120 Kbyte Data Memory\par 
+\par 
+\tab \cf2this register must be set in the start-up file\cf0\par 
+\tab \cf2DMI_CON  =  0x07800782;\cf0\par 
+\par 
+\tab Program Memory Interface (PMI):\par 
+\tab - No Instruction Cache\par 
+\tab - 24 Kbyte Program Memory\par 
+\par 
+\tab \cf2this register must be set in the start-up file\cf0\par 
+\tab \cf2PMI_CON2  =  0x01800183;\cf0\par 
+\par 
+\tab \cf2End of Important Settings for the Start-Up File\cf0\par 
+\par 
+\tab Clock System:\par 
+\tab - external clock frequency: 20.00 MHz\par 
+\tab - input divider (PDIV): 2\par 
+\tab - PLL operation (VCOBYP = 0)\par 
+\tab - VCO range: 600 MHz - 700 MHz\par 
+\tab - feedback divider (NDIV): 64\par 
+\tab - the VCO output frequency is: 640.00 MHz\par 
+\tab - output divider (KDIV): 8\par 
+\tab - CPU clock: 80.00 MHz\par 
+\tab - the ratio fcpu /ffpi is  2 / 1\par 
+\tab - the ratio fcpu /flmb is  1 / 1\par 
+\tab - the ratio fcpu /fpcp is  1/1\par 
+\tab - system clock: 40.00 MHz\par 
+\par 
+\tab Comparing with the Compiler settings\par 
+\par 
+\tab \cf2- after a software reset PLL refuse to lock again unless oscillator is\cf0\par 
+\tab \cf2disconnected first\cf0\par 
+\par 
+\tab Interrupt System:\par 
+\tab - four arbitration cycles (max. 255 interrupt sources)\par 
+\tab - two clocks per arbitration cycle\par 
+\par 
+\tab Peripheral Control Processor (PCP):\par 
+\tab - stop the PCP internal clock when PCP is idle\par 
+\par 
+\tab - use Full Context save area (R[0] - R[7])\par 
+\tab - start progam counter as left by last invocation\par 
+\tab - channel watchdog is disabled\par 
+\tab - maximum channel number checking is disabled\par 
+\par 
+\tab - four arbitration cycles (max. 255 PCP channels)\par 
+\tab - two clocks per arbitration cycle\par 
+\par 
+\tab - the PCP warning mechanism is disabled\par 
+\par 
+\tab - type of service of PCP node 4 is CPU interrupt\par 
+\par 
+\tab - type of service of PCP node 5 is CPU interrupt\par 
+\par 
+\tab - type of service of PCP node 6 is CPU interrupt\par 
+\par 
+\tab - type of service of PCP node 7 is CPU interrupt\par 
+\par 
+\tab - type of service of PCP node 8 is CPU interrupt\par 
+\par 
+\tab Configuration of the DMA Module Clock:\par 
+\tab - enable the DMA module\par 
+\par 
+\tab System Start Conditions:\par 
+\par 
+\tab - the CPU interrupt system is globally enabled\par 
+\par 
+\tab \cf2- the PCP interrupt system is globally disabled\cf0\par 
+\par 
+
+\par \plain\f4\fs20\cf0
+\par \plain\f4\fs28\cf0\ul Parallel Ports
+\par
+\par \plain\f4\fs24\cf0 Macros:\f4\fs20\cf0
+\par
+\par
+\par \plain\f4\fs20\cf0 \tab Macro:
+\par \plain\f4\fs20\cf0\b \tab \tab IO_vSetPin(PinName)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This macro sets the chosen portpin to '1'.
+
+\par \tab \tab Note:
+
+\par \tab \tab See the 'Defines for the parameter PinName' section in this
+
+\par \tab \tab header file for the available definitions for the parameter
+
+\par \tab \tab PinName.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab PinName:
+
+\par \tab \tab Pin to be set to '1'
+
+\par
+\par
+\par \plain\f4\fs20\cf0 \tab Macro:
+\par \plain\f4\fs20\cf0\b \tab \tab IO_vResetPin(PinName)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This macro sets the chosen portpin to '0'.
+
+\par \tab \tab Note:
+
+\par \tab \tab See the 'Defines for the parameter PinName' section in this
+
+\par \tab \tab header file for the available definitions for the parameter
+
+\par \tab \tab PinName.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab PinName:
+
+\par \tab \tab Pin to be set to '0'
+
+\par
+\par
+\par \plain\f4\fs20\cf0 \tab Macro:
+\par \plain\f4\fs20\cf0\b \tab \tab IO_vTogglePin(PinName)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This marco toggles the chosen portpin.
+
+\par \tab \tab Note:
+
+\par \tab \tab See the 'Defines for the parameter PinName' section in this
+
+\par \tab \tab header file for the available definitions for the parameter
+
+\par \tab \tab PinName.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab PinName:
+
+\par \tab \tab Pin to be toggled
+
+\par \plain\f4\fs24\cf0 Functions:\f4\fs20\cf0
+\par
+\par \plain\f4\fs20\cf0 \tab Function:
+\par \plain\f4\fs20\cf0\b \tab \tab void IO_vInit(void)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This is the initialization function of the IO function
+
+\par \tab \tab library. It is assumed that the SFRs used by this library
+
+\par \tab \tab are in their reset state.
+
+\par \tab \tab Note:
+
+\par \tab \tab Alternate outputs are set in their own initialization
+
+\par \tab \tab function.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par
+\par \plain\f4\fs24\cf0 Initialization:
+\par \plain\f4\fs20\cf0\b
+\par
+\tab Configuration of Port P0:\par 
+\tab - no pin of port P0 is used\par 
+\par 
+\tab Configuration of Port P1:\par 
+\tab - no pin of port P1 is used\par 
+\par 
+\tab Configuration of Port P2:\par 
+\tab - no pin of port P2 is used\par 
+\par 
+\tab Configuration of Port P3:\par 
+\tab - no pin of port P3 is used\par 
+\par 
+\tab Configuration of Port P4:\par 
+\tab - no pin of port P4 is used\par 
+\par 
+\tab Configuration of Port P5:\par 
+\tab P5.0:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.1:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.2:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.3:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.4:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.5:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.6:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\tab P5.7:\par 
+\tab - is used as general purpose output\par 
+\tab - push/pull output is selected\par 
+\tab - the pin status is high level\par 
+\tab - output driver characteristic: Strong driver soft edge\par 
+\par 
+\tab Configuration of Port P6:\par 
+\tab - no pin of port P6 is used\par 
+\par 
+\tab Configuration of Port P8:\par 
+\tab - no pin of port P8 is used\par 
+\par 
+\tab Configuration of Port P9:\par 
+\tab - no pin of port P9 is used\par 
+\par 
+\tab Configuration of Port P10:\par 
+\tab - no pin of port P10 is used\par 
+\par 
+\tab Configuration of Port P11:\par 
+\tab - no pin of port P11 is used\par 
+\par 
+
+\par \plain\f4\fs20\cf0
+\par \plain\f4\fs28\cf0\ul General Purpose Timer Array 0 (GPTA0)
+\par
+\par \plain\f4\fs24\cf0 Macros:\f4\fs20\cf0
+\par \plain\f4\fs24\cf0 Functions:\f4\fs20\cf0
+\par
+\par \plain\f4\fs20\cf0 \tab Function:
+\par \plain\f4\fs20\cf0\b \tab \tab void GPTA0_vInit(void)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This is the initialization function of the GPTA0 function
+
+\par \tab \tab library. It is assumed that the SFRs used by this library
+
+\par \tab \tab are in their reset state.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par
+\par \plain\f4\fs20\cf0 \tab Function:
+\par \plain\f4\fs20\cf0\b \tab \tab void GPTA0_viSRN22(void)\plain\f4\fs20\cf0
+\par \tab Description:
+\par \plain\f4\fs20\cf0\i
+\tab \tab This is the interrupt service routine for the Service
+
+\par \tab \tab Request Node 22 of the GPTA0 module.
+
+\par \tab \tab Please note that you have to add application specific code
+
+\par \tab \tab to this function.
+
+\par \plain\f4\fs20\cf0 \tab Returnvalue:
+\par \tab \tab \plain\f4\fs20\cf0\b None\plain\f4\fs20\cf0
+\par \plain\f4\fs20\cf0 \tab Parameters:
+\par \plain\f4\fs20\cf0\b 
+\tab \tab None
+
+\par
+\par \plain\f4\fs24\cf0 Initialization:
+\par \plain\f4\fs20\cf0\b
+\par
+\tab Configuration of the Module Clock:\par 
+\par 
+\tab - the GPTA module is stopped during sleep mode\par 
+\tab - normal divider mode is selected\par 
+\tab - required GPTA module clock is 40.00 MHz\par 
+\tab - real GPTA module clock is 40.00 MHz\par 
+\par 
+\tab Configuration of Filter and Prescaler Cells 0 - 5:\par 
+\tab FPC0 configuration:\par 
+\tab - FPC0 input selection: 40.00 MHz\par 
+\tab - FPC0 operation mode: Delayed debounce filter mode on both edges\par 
+\tab - Filter clock selection: Use bus line 0 (=GPTA0 clock / 2^0 (= 40.00\par 
+\tab MHz; 0.03 us))\par 
+\tab - FPC0 timer is decremented on glitch\par 
+\tab - FPC0 compare value is 0x0000\par 
+\par 
+\tab FPC1 configuration:\par 
+\tab - FPC1 input selection: 40.00 MHz\par 
+\tab - FPC1 operation mode: Delayed debounce filter mode on both edges\par 
+\tab - Filter clock selection: Use bus line 0 (=GPTA0 clock / 2^0 (= 40.00\par 
+\tab MHz; 0.03 us))\par 
+\tab - FPC1 timer is decremented on glitch\par 
+\tab - FPC1 compare value is 0x0000\par 
+\par 
+\tab FPC2 configuration:\par 
+\tab - FPC2 input selection: 40.00 MHz\par 
+\tab - FPC2 operation mode: Delayed debounce filter mode on both edges\par 
+\tab - Filter clock selection: Use bus line 0 (=GPTA0 clock / 2^0 (= 40.00\par 
+\tab MHz; 0.03 us))\par 
+\tab - FPC2 timer is decremented on glitch\par 
+\tab - FPC2 compare value is 0x0000\par 
+\par 
+\tab FPC3 configuration:\par 
+\tab - FPC3 input selection: 40.00 MHz\par 
+\tab - FPC3 operation mode: Delayed debounce filter mode on both edges\par 
+\tab - Filter clock selection: Use bus line 0 (=GPTA0 clock / 2^0 (= 40.00\par 
+\tab MHz; 0.03 us))\par 
+\tab - FPC3 timer is decremented on glitch\par 
+\tab - FPC3 compare value is 0x0000\par 
+\par 
+\tab FPC4 configuration:\par 
+\tab - FPC4 input selection: 40.00 MHz\par 
+\tab - FPC4 operation mode: Delayed debounce filter mode on both edges\par 
+\tab - Filter clock selection: Use bus line 0 (=GPTA0 clock / 2^0 (= 40.00\par 
+\tab MHz; 0.03 us))\par 
+\tab - FPC4 timer is decremented on glitch\par 
+\tab - FPC4 compare value is 0x0000\par 
+\par 
+\tab FPC5 configuration:\par 
+\tab - FPC5 input selection: 40.00 MHz\par 
+\tab - FPC5 operation mode: Delayed debounce filter mode on both edges\par 
+\tab - Filter clock selection: Use bus line 0 (=GPTA0 clock / 2^0 (= 40.00\par 
+\tab MHz; 0.03 us))\par 
+\tab - FPC5 timer is decremented on glitch\par 
+\tab - FPC5 compare value is 0x0000\par 
+\par 
+\tab Configuration of Phase Discrimination Logic Cells 0 - 1:\par 
+\tab PDL0 configuratin:\par 
+\tab - PDL0 provide DCM0 cell input with FPC0 output (= 40.00 MHz)\par 
+\tab - PDL0 operates in '2 Sensor Mode' and provide DCM1 cell input with\par 
+\tab FPC2 output (= 40.00 MHz)\par 
+\par 
+\tab PDL1 configuratin:\par 
+\tab - PDL1 provide DCM2 cell input with FPC3 output (= 40.00 MHz)\par 
+\tab - PDL1 operates in '2 Sensor Mode' and provide DCM3 cell input with\par 
+\tab FPC5 output (= 40.00 MHz)\par 
+\par 
+\tab Configuration of Duty Cycle Measurement and Limit Checking Cells 0 - 3:\par 
+\tab DCM0 configuration:\par 
+\tab - DCM0 input signal is 40.00 MHz\par 
+\tab - DCM0 capture the timer contents to CAV capture register on a falling\par 
+\tab input signal edge\par 
+\par 
+\tab DCM1 configuration:\par 
+\tab - DCM1 input signal is 40.00 MHz\par 
+\tab - DCM1 capture the timer contents to CAV capture register on a falling\par 
+\tab input signal edge\par 
+\par 
+\tab DCM2 configuration:\par 
+\tab - DCM2 input signal is 40.00 MHz\par 
+\tab - DCM2 capture the timer contents to CAV capture register on a falling\par 
+\tab input signal edge\par 
+\par 
+\tab DCM3 configuration:\par 
+\tab - DCM3 input signal is 40.00 MHz\par 
+\tab - DCM3 capture the timer contents to CAV capture register on a falling\par 
+\tab input signal edge\par 
+\par 
+\tab Configuration of Digital Phase Locked Loop Cell:\par 
+\tab - use DCM0 output signal (= no output signal enabled) as PLL input\par 
+\tab - period of the PLL input signal in GPTA clocks = 0\par 
+\tab - number of output pulses to be generated within one input signal\par 
+\tab period = 0\par 
+\par 
+\tab Configuration of GPTA Clock Bus 0 - 7:\par 
+\tab - Clock bus signal 0: GPTA0 clock / 2^0 (= 40.00 MHz; 0.03 us)\par 
+\tab - Clock bus signal 1: PLL output\par 
+\tab - Clock bus signal 2: DCM3 (= no output signal enabled)\par 
+\tab - Clock bus signal 3: DCM2 (= no output signal enabled)\par 
+\tab - Clock bus signal 4: DCM1 (= no output signal enabled)\par 
+\tab - Clock bus signal 5: DCM0 (= no output signal enabled)\par 
+\tab - Clock bus signal 6: FPC1 output (= 40.00 MHz)\par 
+\tab - Clock bus signal 7: GPTA0 clock / 2^6 (= 625.00 KHz; 1.60 us)\par 
+\par 
+\tab Configuration of Global Timers 0 - 1:\par 
+\tab GT0 configuration:\par 
+\tab - GT0 input is clock bus signal 0 (= GPTA0 clock / 2^0 (= 40.00 MHz;\par 
+\tab 0.03 us))\par 
+\tab - GT0 compare flag is the 9th bit of the substraction result\par 
+\par 
+\tab GT1 configuration:\par 
+\tab - GT1 input is clock bus signal 0 (= GPTA0 clock / 2^0 (= 40.00 MHz;\par 
+\tab 0.03 us))\par 
+\tab - GT1 compare flag is the 9th bit of the substraction result\par 
+\par 
+\tab Configuration of Global Timer Cells 0 - 31:\par 
+\par 
+\tab Configuration of Local Timer Cells 0 - 63:\par 
+\tab Local Timer Cell 0 configuration:\par 
+\tab - LTC0 cell is enabled after initialization\par 
+\tab - LTC0 mode: timer with reset from adjacent LTC with higher order\par 
+\tab number\par 
+\tab - input line selection: CLOCK7\par 
+\tab - input line is operating in edge sensitive mode\par 
+\tab In case of full speed GPTA module clock selection as input clock,\par 
+\tab the Level Sensitive Mode must be selected. The Edge Sensitive Mode\par 
+\tab will not produce an event in this special case.\par 
+\tab - enable rising edge of selected input pin\par 
+\tab - action transfer: hold the LTC0 output by an local event only\par 
+\tab - state of select line output SO is 0\par 
+\par 
+\tab Local Timer Cell 1 configuration:\par 
+\tab - LTC1 cell is enabled after initialization\par 
+\tab - LTC1 mode: compare with last timer (= LTC0)\par 
+\tab - enable low level of 'Select Line input' Si\par 
+\tab - enable high level of 'Select Line input' Si\par 
+\tab - action transfer: hold the LTC1 output by an local event only\par 
+\tab - enable service request on the selected event (= compare with last\par 
+\tab timer)\par 
+\par 
+\tab Local Timer Cell 63 configuration:\par 
+\tab - compare uses normal sequence of timer bits\par 
+\tab - the input line is not connected to the LTC63 cell\par 
+\par 
+\tab Configuration of the used GPTA0 Port Pins:\par 
+\par 
+\tab Configuration of Service Request Nodes 0 - 37:\par 
+\tab - SRN22 service request node configuration:\par 
+\tab - SRN22 interrupt priority level (SRPN) = 2\par 
+\tab - SRN22 CPU interrupt is selected\par 
+\par 
+\tab Multiplexer Register Array FIFO:\par 
+\par 
+\tab \cf2- GPTA0 GT0 timer is not started after initialization; to start the\cf0\par 
+\tab \cf2GT0 timer use the macro GPTA0_vStartGTTimer(0)\cf0\par 
+\par 
+\tab \cf2- GPTA0 GT1 timer is not started after initialization; to start the\cf0\par 
+\tab \cf2GT1 timer use the macro GPTA0_vStartGTTimer(1)\cf0\par 
+\par 
+
+}
