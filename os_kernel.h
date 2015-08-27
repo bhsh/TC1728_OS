@@ -88,6 +88,7 @@ inline void pthread_start_np(void) {
 
    // PTHREAD_SWAP_HANDLER(thread,pthread_running);
     //pthread_running = thread;//
+
     __dsync();
     __mtcr(0xfe00, lcx_test);
     __rslcx();

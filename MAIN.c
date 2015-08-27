@@ -12,7 +12,7 @@
 // @Description   This file contains the project initialization function.
 //
 //----------------------------------------------------------------------------
-// @Date          8/26/2015 16:16:23
+// @Date          8/26/2015 21:42:52
 //
 //****************************************************************************
 
@@ -46,7 +46,7 @@
 // @Defines
 //****************************************************************************
 
-#define RESET_INDICATOR     ((SCU_RSTSTAT & ((uword)(0x0001001B))))
+#define RESET_INDICATOR     ((SCU_RSTSTAT.U & ((uword)(0x0001001B))))
 #define WATCHDOG_RESET      ((uword)0x00000008)
 #define SOFTWARE_RESET      ((uword)0x00000010)
 #define ESR0_RESET          ((uword)0x00000001)
@@ -149,7 +149,7 @@ void MAIN_vInit(void)
     ///  SBCU bus time-out value: 65536 cycles
 
     //// this register must be set in the start-up file
-    //// SBCU_CON  =  0x4009FFFF;
+    //// SBCU_CON.U  = 0x4009FFFF;
 
     ///  ---------------------------------------------------------------------
     ///  Data Memory Interface (DMI):
@@ -158,7 +158,7 @@ void MAIN_vInit(void)
     ///  - 120 Kbyte Data Memory
 
     //// this register must be set in the start-up file
-    //// DMI_CON  =  0x07800782;
+    //// DMI_CON.U  = 0x07800782;
 
     ///  ---------------------------------------------------------------------
     ///  Program Memory Interface (PMI):
@@ -167,7 +167,7 @@ void MAIN_vInit(void)
     ///  - 24 Kbyte Program Memory
 
     //// this register must be set in the start-up file
-    //// PMI_CON2  =  0x01800183;
+    //// PMI_CON2.U  = 0x01800183;
 
   //// -----------------------------------------------------------------------
   //// End of Important Settings for the Start-Up File
@@ -191,31 +191,31 @@ void MAIN_vInit(void)
 
 
    /// Comparing with the Compiler settings
-   if(((SCU_PLLCON0  & 0X1017E00) != 0X1017E00) || ((SCU_PLLCON1 & 0X20007) != 0X20007) \
-       || ((SCU_CCUCON0 & 0X1) != 0X1))
+   if(((SCU_PLLCON0.U  & 0X1017E00) != 0X1017E00) || ((SCU_PLLCON1.U & 0X20007) != 0X20007) \
+       || ((SCU_CCUCON0.U & 0X1) != 0X1))
    {
 
   //// - after a software reset PLL refuse to lock again unless oscillator is 
   ////   disconnected first
 
     MAIN_vResetENDINIT();
-    SCU_PLLCON0_VCOBYP  =  0;    // reset VCO bypass
-    SCU_PLLCON0_SETFINDIS  =  1; // disconnect OSC from PLL
+  SCU_PLLCON0.B.VCOBYP  = 0;     // reset VCO bypass
+  SCU_PLLCON0.B.SETFINDIS  = 1;  // disconnect OSC from PLL
     MAIN_vSetENDINIT();
 
 
-    if (!SCU_PLLSTAT_PWDSTAT)
+    if (!SCU_PLLSTAT.B.PWDSTAT)
     {
       MAIN_vResetENDINIT();
-      SCU_CCUCON0  =  0x00000001; // set FPI,LMB and PCP dividers
-      SCU_PLLCON0_VCOBYP  =  1;  // set VCO bypass (goto Prescaler Mode)
-      while (!SCU_PLLSTAT_VCOBYST);// wait for prescaler mode
-      SCU_PLLCON0  =  0x01057E21; // set P,N divider, connect OSC
-      SCU_PLLCON1  =  0x00020007; // set K1,K2 divider
+      SCU_CCUCON0.U  = 0x00000001; // set FPI,LMB and PCP dividers
+      SCU_PLLCON0.B.VCOBYP  = 1; // set VCO bypass (goto Prescaler Mode)
+      while (!SCU_PLLSTAT.B.VCOBYST);// wait for prescaler mode
+      SCU_PLLCON0.U  = 0x01057E21; // set P,N divider, connect OSC
+      SCU_PLLCON1.U  = 0x00020007; // set K1,K2 divider
       MAIN_vSetENDINIT();
-      while (SCU_PLLSTAT_VCOLOCK == 0);// wait for LOCK
+      while (SCU_PLLSTAT.B.VCOLOCK == 0);// wait for LOCK
       MAIN_vResetENDINIT();
-      SCU_PLLCON0_VCOBYP  =  0;  // Reset VCO bypass (Leave Prescaler Mode)
+      SCU_PLLCON0.B.VCOBYP  = 0; // Reset VCO bypass (Leave Prescaler Mode)
       MAIN_vSetENDINIT();
     }
    }
@@ -226,7 +226,7 @@ void MAIN_vInit(void)
   ///  - four arbitration cycles (max. 255 interrupt sources)
   ///  - two clocks per arbitration cycle
 
-  MTCR(0xFE2C,  0x00000000);     // load CPU interrupt control register
+  MTCR(0xFE2C, 0x00000000);      // load CPU interrupt control register
   ISYNC();
 
   ///  -----------------------------------------------------------------------
@@ -240,31 +240,31 @@ void MAIN_vInit(void)
   ///  - maximum channel number checking is disabled
 
   MAIN_vResetENDINIT();
-  PCP_CLC        =  0x00000000;  // load PCP clock control register
-  PCP_CS         =  0x00000200;  // load PCP control and status register
+  PCP_CLC.U      = 0x00000000;   // load PCP clock control register
+  PCP_CS.U       = 0x00000200;   // load PCP control and status register
   MAIN_vSetENDINIT();
 
   ///  - four arbitration cycles (max. 255 PCP channels)
   ///  - two clocks per arbitration cycle
-  PCP_ICR        =  0x00000000;  // load PCP interrupt control register
+  PCP_ICR.U      = 0x00000000;   // load PCP interrupt control register
 
   ///  - the PCP warning mechanism is disabled
-  PCP_ITR        =  0x00000000;  // load PCP interrupt threshold register
+  PCP_ITR.U      = 0x00000000;   // load PCP interrupt threshold register
 
   ///  - type of service of PCP node 4 is CPU interrupt
-  PCP_SRC4       =  0x00001000;  // load service request control register 4
+  PCP_SRC4.U     = 0x00001000;   // load service request control register 4
 
   ///  - type of service of PCP node 5 is CPU interrupt
-  PCP_SRC5       =  0x00001000;  // load service request control register 5
+  PCP_SRC5.U     = 0x00001000;   // load service request control register 5
 
   ///  - type of service of PCP node 6 is CPU interrupt
-  PCP_SRC6       =  0x00001000;  // load service request control register 6
+  PCP_SRC6.U     = 0x00001000;   // load service request control register 6
 
   ///  - type of service of PCP node 7 is CPU interrupt
-  PCP_SRC7       =  0x00001000;  // load service request control register 7
+  PCP_SRC7.U     = 0x00001000;   // load service request control register 7
 
   ///  - type of service of PCP node 8 is CPU interrupt
-  PCP_SRC8       =  0x00001000;  // load service request control register 8
+  PCP_SRC8.U     = 0x00001000;   // load service request control register 8
 
   ///  -----------------------------------------------------------------------
   ///  Configuration of the DMA Module Clock:
@@ -272,19 +272,13 @@ void MAIN_vInit(void)
   ///  - enable the DMA module
 
   MAIN_vResetENDINIT();
-  DMA_CLC        =  0x00000008;  // DMA clock control register
-  DummyToForceRead  =  DMA_CLC;  // read it back to ensure it is read
+  DMA_CLC.U      = 0x00000008;   // DMA clock control register
+  DummyToForceRead  = DMA_CLC.U; // read it back to ensure it is read
   MAIN_vSetENDINIT();
 
   //   -----------------------------------------------------------------------
   //   Initialization of the Peripherals:
   //   -----------------------------------------------------------------------
-  //   initializes the Parallel Ports
-  IO_vInit();
-
-  //   initializes the General Purpose Timer Array 0 (GPTA0)
-  GPTA0_vInit();
-
 
   // USER CODE BEGIN (Init,3)
 
@@ -294,8 +288,8 @@ void MAIN_vInit(void)
   ///  System Start Conditions:
   ///  -----------------------------------------------------------------------
 
-  ///  - the CPU interrupt system is globally enabled
-  //ENABLE();
+  //// - the CPU interrupt system is globally disabled
+  DISABLE();
 
   //// - the PCP interrupt system is globally disabled
 
@@ -334,10 +328,10 @@ void MAIN_vWriteWDTCON0(uword uwValue)
 {
   uword uwDummy;
 
-  uwDummy        =  WDT_CON0;   
+  uwDummy        = WDT_CON0.U;  
   uwDummy |=  0x000000F0;       //  set HWPW1 = 1111b
 
-  if(WDT_CON1_DR)
+  if(WDT_CON1.B.DR)
   {
     uwDummy |=  0x00000008;     //  set HWPW0 = WDTDR
   }
@@ -345,7 +339,7 @@ void MAIN_vWriteWDTCON0(uword uwValue)
   {
     uwDummy &= ~0x00000008;     //  set HWPW0 = WDTDR
   }
-  if(WDT_CON1_IR)
+  if(WDT_CON1.B.IR)
   {
     uwDummy |=  0x00000004;     //  set HWPW0 = WDTIR
   }
@@ -355,11 +349,11 @@ void MAIN_vWriteWDTCON0(uword uwValue)
   }
 
   uwDummy &= ~0x00000002;       //  set WDTLCK = 0
-  WDT_CON0 =  uwDummy;          //  unlock access
+  WDT_CON0.U =  uwDummy;          //  unlock access
 
   uwValue  |=  0x000000F2;      //  set HWPW1 = 1111b and WDTLCK = 1
   uwValue  &= ~0x0000000C;      //  set HWPW0 = 00b
-  WDT_CON0  =  uwValue;         //  write access and lock
+  WDT_CON0.U  =  uwValue;         //  write access and lock
 
 } //  End of function MAIN_vWriteWDTCON0
 
@@ -393,55 +387,8 @@ sword main(void)
 
   // USER CODE END
 
-  swReturn = 0;
-
-  switch(RESET_INDICATOR)
-  {
-    case WATCHDOG_RESET:         //  the last reset was a watchdog triggered
-                                 //  (hardware) reset
-
-         // USER CODE BEGIN (Main,3)
-
-         // USER CODE END
-
-    case SOFTWARE_RESET:         //  the last reset was an internally 
-                                 //  triggered software reset
-
-         // USER CODE BEGIN (Main,4)
-
-         // USER CODE END
-
-    case ESR0_RESET:             //  the last reset was an externally 
-                                 //  triggered hardware reset (#ESR0 pin)
-
-         // USER CODE BEGIN (Main,4.1)
-
-         // USER CODE END
-
-    case ESR1_RESET:             //  the last reset was an externally 
-                                 //  triggered hardware reset (#ESR1 pin)
-
-         // USER CODE BEGIN (Main,4.2)
-
-         // USER CODE END
-
-    case POWERON_RESET:          //  the last reset was an externally
-                                 //  triggered power on reset (#POR pin)
-
-         // USER CODE BEGIN (Main,5)
-
-         // USER CODE END
-
-    default:
-
-         // USER CODE BEGIN (Main,6)
-
-         // USER CODE END
-
-         MAIN_vInit();
-  }
-
-
+       // extern int pll_init(void);
+        pll_init();
          // USER CODE BEGIN (Main,7)
         start_os();
          // USER CODE END

@@ -21,7 +21,7 @@
 							<builder buildPath="${workspace_loc:/TC1728_OS/Debug}" id="com.tasking.ctc.builder.abs.debug.1778982631" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="TASKING TriCore Makefile generator" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.tasking.ctc.builder.abs.debug"/>
 							<tool id="com.tasking.ctc.cc.abs.debug.247232371" name="C/C++ Compiler" superClass="com.tasking.ctc.cc.abs.debug">
 								<option id="com.tasking.ctc.cc.pr36858.168751374" name="workaround for PR36858" superClass="com.tasking.ctc.cc.pr36858" value="true" valueType="string"/>
-								<option id="com.tasking.ctc.cc.noTaskingSfr.1270113626" name="Automatic inclusion of '.sfr' file" superClass="com.tasking.ctc.cc.noTaskingSfr" value="false" valueType="boolean"/>
+								<option id="com.tasking.ctc.cc.noTaskingSfr.1270113626" name="Automatic inclusion of '.sfr' file" superClass="com.tasking.ctc.cc.noTaskingSfr" value="true" valueType="boolean"/>
 								<inputType id="com.tasking.ctc.cppInputType.1228793703" name="C++" superClass="com.tasking.ctc.cppInputType"/>
 								<inputType id="com.tasking.ctc.cpp.cInputType.282001205" name="C" superClass="com.tasking.ctc.cpp.cInputType"/>
 								<inputType id="com.tasking.ctc.cc.msInputType.1695291486" name="MS" superClass="com.tasking.ctc.cc.msInputType"/>
@@ -41,11 +41,7 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 			<storageModule moduleId="com.tasking.toolInfo">
-				<toolInfo>TASKING VX-toolset for TriCore: object linker v4.3r3 Build 248 SN 00667512</toolInfo>
-				<toolInfo>TASKING VX-toolset for TriCore: control program v4.3r3 Build 208.2.2</toolInfo>
 				<toolInfo>TASKING program builder v4.3r3 Build 079</toolInfo>
-				<toolInfo>TASKING VX-toolset for TriCore: assembler v4.3r3 Build 341</toolInfo>
-				<toolInfo>TASKING VX-toolset for TriCore: C compiler v4.3r3 Build 759.2.1 SN 00667512</toolInfo>
 			</storageModule>
 		</cconfiguration>
 		<cconfiguration id="com.tasking.config.ctc.abs.release.2092605440">

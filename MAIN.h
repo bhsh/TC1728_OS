@@ -13,7 +13,7 @@
 //                the MAIN module.
 //
 //----------------------------------------------------------------------------
-// @Date          8/26/2015 16:16:23
+// @Date          8/26/2015 21:42:52
 //
 //****************************************************************************
 
@@ -163,7 +163,7 @@ void MAIN_vWriteWDTCON0(uword uwValue);
 //
 //****************************************************************************
 
-#define MAIN_vSetENDINIT() MAIN_vWriteWDTCON0(WDT_CON0 | 0x00000001)
+#define MAIN_vSetENDINIT() MAIN_vWriteWDTCON0(WDT_CON0.U | 0x00000001)
 
 
 //****************************************************************************
@@ -189,7 +189,7 @@ void MAIN_vWriteWDTCON0(uword uwValue);
 //
 //****************************************************************************
 
-#define MAIN_vResetENDINIT() MAIN_vWriteWDTCON0(WDT_CON0 & ~0x00000001);while (WDT_CON0_ENDINIT != 0)
+#define MAIN_vResetENDINIT() MAIN_vWriteWDTCON0(WDT_CON0.U & ~0x00000001);while (WDT_CON0.B.ENDINIT != 0)
 
 
 //****************************************************************************
@@ -206,9 +206,6 @@ void MAIN_vWriteWDTCON0(uword uwValue);
 // @Project Includes
 //****************************************************************************
 
-#include  "TC1728Regs.h"
-#include  "IO.h"
-#include  "GPTA0.h"
 
 // USER CODE BEGIN (MAIN_Header,10)
 #include "os_kernel.h"

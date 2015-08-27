@@ -9,7 +9,7 @@
 '                PLEASE DO NOT MODIFY THIS FILE !
 '
 '----------------------------------------------------------------------------
-; Date          8/26/2015 16:16:24
+; Date          8/26/2015 21:42:52
 '
 '****************************************************************************
 
@@ -30,22 +30,12 @@ OscillatorFrequency=20
 DeviceFrequency=40
 
 [Files]
-File1="TC1728Regs.h"
+File1="MAIN.h"
 Type1="H"
-File2="MAIN.h"
-Type2="H"
-File3="MAIN.c"
-Type3="C"
-File4="IO.h"
-Type4="H"
-File5="IO.c"
-Type5="C"
-File6="GPTA0.h"
-Type6="H"
-File7="GPTA0.c"
-Type7="C"
-File8="TC1728_OS.rtf"
-Type8="RTF"
+File2="MAIN.c"
+Type2="C"
+File3="TC1728_OS.rtf"
+Type3="RTF"
 
 
 [Registers]
@@ -15406,7 +15396,7 @@ GPTA0_USE_GETDCMCAPTURE=0
 GPTA0_USE_GETFPCGLITCHSTATE=0
 GPTA0_USE_GETGTRELOAD=0
 GPTA0_USE_GETOUTPUTMODE=0
-GPTA0_USE_INIT=1
+GPTA0_USE_INIT=0
 GPTA0_USE_READTMR=0
 GPTA0_USE_REENABLETMR=0
 GPTA0_USE_RESETFPCGLITCHSTATE=0
@@ -15629,7 +15619,7 @@ ICNT_SOVF=0
 ICR_CARBCYC=0
 ICR_CCPN=0
 ICR_CONECYC=0
-ICR_IE=1
+ICR_IE=0
 ICR_PIPN=0
 INT_CFILE=INT.c
 INT_HFILE=INT.h
@@ -15817,7 +15807,7 @@ IO_PARA_P9_5=IO_P9_5
 IO_PARA_P9_6=IO_P9_6
 IO_PARA_P9_7=IO_P9_7
 IO_PARA_P9_8=IO_P9_8
-IO_USE_INIT=1
+IO_USE_INIT=0
 IO_USE_READPIN=0
 IO_USE_READPORT=0
 IO_USE_RESETPIN=1
@@ -15888,7 +15878,7 @@ M3CNT_SOVF=0
 MAIN_CFILE=MAIN.c
 MAIN_COMPILER=Tasking 3.5r1
 MAIN_CPU_TYPE=TC1728
-MAIN_DAVESFR=1
+MAIN_DAVESFR=0
 MAIN_FREQUENCY=133 MHz
 MAIN_HFILE=MAIN.h
 MAIN_ISNEWPROJECT=1

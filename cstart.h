@@ -11,7 +11,7 @@
 **      C startup code editor, which provides a GUI to modify the         *
 **      Configuration settings and register initialization.               *
 **                                                                        *
-**  Copyright 1996-2014 Altium BV                                         *
+**  Copyright 1996-2009 Altium BV                                         *
 **                                                                        *
 **************************************************************************/
 
@@ -26,8 +26,6 @@
 
 /* C Startup settings */
 #define __BIV_INIT              1       /* Initialize base address of interrupt vector table */
-#define __BIV_SINGLE_INIT       0       /* Initialize single entry interrupt vector table */
-#define __BIV_8BYTE_INIT        0       /* Initialize 8 byte spacing interrupt vector table */
 #define __BTV_INIT              1       /* Initialize base address of trap vector table */
 #define __CSA_INIT              1       /* Initialize CSA lists */
 #define __C_INIT                1       /* Initialize and clear C variables */
@@ -38,28 +36,8 @@
 
 #define __USER_STACK            1       /* Use the user stack (clear PSW.IS) */
 #define __WATCHDOG_DISABLE      1       /* Watchdog disable */
-#define __SAFETY_WATCHDOG_DISABLE 1     /* Safety watchdog disable */
 #define __USE_ARGC_ARGV         0       /* Enable passing argc/argv to main() */
 #define __ARGCV_BUFSIZE       256       /* Buffer size for argv */
-#define __CLOCKS_PER_SEC_INIT   0       /* Initialize clocks per sec */
-#define __fOSC           20000000       /* Oscillator frequency Hz */
-#define __PLL_K2_RAMPUP         0       /* PLL K2 rampup */
-#define __STADD_INIT_TC1        1       /* Initialize start address TC1 */
-#define __STADD_INIT_TC2        1       /* Initialize start address TC2 */
-#define __HALT_INIT_TC1         0       /* Initialize HALT state of TC1 */
-#define __HALT_INIT_TC2         0       /* Initialize HALT state of TC2 */
-#define __HALT_VALUE_TC1        0x0     /* Set HALT value of TC1 */
-                                        /* 0 R:running W:unchanged
-                                           1 R:halted W:unchanged
-                                           2 R:n.a. W:reset halt
-                                           3 R:n.a. W:set when debug enable
-                                        */
-#define __HALT_VALUE_TC2        0x0     /* Set HALT value of TC2 */
-                                        /* 0 R:running W:unchanged
-                                           1 R:halted W:unchanged
-                                           2 R:n.a. W:reset halt
-                                           3 R:n.a. W:set when debug enable
-                                        */
 
 /* Trap Vectors */
 #define __RESOLVE_TRAP_0        1       /* Class 0: MMU */
@@ -70,7 +48,6 @@
 #define __RESOLVE_TRAP_5        1       /* Class 5: Assertion */
 #define __RESOLVE_TRAP_6        1       /* Class 6: System call */
 #define __RESOLVE_TRAP_7        1       /* Class 7: Non-maskable interrupt */
-
 
 #endif /* __NO_CSTART_DEFAULT_CONFIG */
 
@@ -90,44 +67,18 @@
  * from the include/sfr directory of the product.
  *
  */
-
-#define __EBU_BOOTCFG_INIT      1
-#define __EBU_BOOTCFG_VALUE     0x800C
-
 #ifndef __NO_CSTART_REGISTER_CONFIG
 /* Non-bus configuration: */
+#define __EBU_BOOTCFG_INIT      1
+#define __EBU_BOOTCFG_VALUE     0x0000800c
 #define __PMI_CON0_INIT         1
 #define __PMI_CON0_VALUE        0x00000000
 #define __PMI_CON1_INIT         0
 #define __PMI_CON1_VALUE        0x00000000
 #define __PMI_CON2_INIT         1
-#define __PMI_CON2_VALUE        0x01830183
+#define __PMI_CON2_VALUE        0x02840284
 #define __PMU_EIFCON_INIT       0
 #define __PMU_EIFCON_VALUE      0x00000000
-#define __DMI_CON_INIT          1
-#define __DMI_CON_VALUE         0x07820782
-#define __PLL_CLC_INIT          0
-#define __PLL_CLC_VALUE         0x00000000
-#define __SCU_PLLCON0_INIT      0
-#define __SCU_PLLCON0_VALUE     0x0001c600
-#define __SCU_PLLCON1_INIT      0
-#define __SCU_PLLCON1_VALUE     0x0002000f
-#define __SCU_OSCCON_INIT       0
-#define __SCU_OSCCON_VALUE      0x0000001c
-#define __SCU_CCUCON0_INIT      0
-#define __SCU_CCUCON0_VALUE     0x80000001
-#define __SCU_CCUCON1_INIT      0
-#define __SCU_CCUCON1_VALUE     0x80000b01
-#define __SCU_CCUCON2_INIT      0
-#define __SCU_CCUCON2_VALUE     0x00000001
-#define __STM_CLC_INIT          0
-#define __STM_CLC_VALUE         0x00000200
-#define __GTM_CLC_INIT          1
-#define __GTM_CLC_VALUE         0x00000000
-#define __FLASH0_FCON_INIT      0
-#define __FLASH0_FCON_VALUE     0x00070a06
-#define __FLASH1_FCON_INIT      0
-#define __FLASH1_FCON_VALUE     0x00000000
 /* Bus configuration: (set by 'Target Board Configuration' wizard) */
 #define __EBU_ADDRSEL0_INIT     0
 #define __EBU_ADDRSEL0_VALUE    0x00000000
@@ -202,74 +153,8 @@
 #define __CBS_MCDBBS_INIT       0
 #define __CBS_MCDBBS_VALUE      0x00000000
 #define __SBCU_CON_INIT         0
-#define __SBCU_CON_VALUE        0x4000ffff
-#define __EBU_BUSRAP1_INIT      0
-#define __EBU_BUSRAP1_VALUE     0x00000000
-#define __EBU_BUSRAP0_INIT      0
-#define __EBU_BUSRAP0_VALUE     0x00000000
-#define __EBU_BUSRAP2_INIT      0
-#define __EBU_BUSRAP2_VALUE     0x00000000
-#define __EBU_BUSRAP3_INIT      0
-#define __EBU_BUSRAP3_VALUE     0x00000000
-#define __EBU_BUSRCON0_INIT     0
-#define __EBU_BUSRCON0_VALUE    0x00000000
-#define __EBU_BUSRCON1_INIT     0
-#define __EBU_BUSRCON1_VALUE    0x00000000
-#define __EBU_BUSRCON2_INIT     0
-#define __EBU_BUSRCON2_VALUE    0x00000000
-#define __EBU_BUSRCON3_INIT     0
-#define __EBU_BUSRCON3_VALUE    0x00000000
-#define __EBU_BUSWAP0_INIT      0
-#define __EBU_BUSWAP0_VALUE     0x00000000
-#define __EBU_BUSWAP1_INIT      0
-#define __EBU_BUSWAP1_VALUE     0x00000000
-#define __EBU_BUSWAP2_INIT      0
-#define __EBU_BUSWAP2_VALUE     0x00000000
-#define __EBU_BUSWAP3_INIT      0
-#define __EBU_BUSWAP3_VALUE     0x00000000
-#define __EBU_BUSWCON0_INIT     0
-#define __EBU_BUSWCON0_VALUE    0x00000000
-#define __EBU_BUSWCON1_INIT     0
-#define __EBU_BUSWCON1_VALUE    0x00000000
-#define __EBU_BUSWCON2_INIT     0
-#define __EBU_BUSWCON2_VALUE    0x00000000
-#define __EBU_BUSWCON3_INIT     0
-#define __EBU_BUSWCON3_VALUE    0x00000000
-#define __EBU_EXTBOOT_INIT      0
-#define __EBU_EXTBOOT_VALUE     0x00000000
-#define __EBU_MODCON_INIT       0
-#define __EBU_MODCON_VALUE      0x00000000
-#define __EBU_DDRNCON_INIT      0
-#define __EBU_DDRNCON_VALUE     0x00000000
-#define __EBU_DDRNMOD_INIT      0
-#define __EBU_DDRNMOD_VALUE     0x00000000
-#define __EBU_DDRNMOD2_INIT     0
-#define __EBU_DDRNMOD2_VALUE    0x00000000
-#define __EBU_DDRNPRLD_INIT     0
-#define __EBU_DDRNPRLD_VALUE    0x00000000
-#define __EBU_DDRNTAG0_INIT     0
-#define __EBU_DDRNTAG0_VALUE    0x00000000
-#define __EBU_DDRNTAG1_INIT     0
-#define __EBU_DDRNTAG1_VALUE    0x00000000
-#define __EBU_DDRNTAG2_INIT     0
-#define __EBU_DDRNTAG2_VALUE    0x00000000
-#define __EBU_DDRNTAG3_INIT     0
-#define __EBU_DDRNTAG3_VALUE    0x00000000
-#define __EBU_DLLCON_INIT       0
-#define __EBU_DLLCON_VALUE      0x00000000
-#define __EBU_SDRMCON_INIT      0
-#define __EBU_SDRMCON_VALUE     0x00000000
-#define __EBU_SDRMOD_INIT       0
-#define __EBU_SDRMOD_VALUE      0x00000000
-#define __EBU_SDRMREF_INIT      0
-#define __EBU_SDRMREF_VALUE     0x00000000
-#define __EBU_SDRSTAT_INIT      0
-#define __EBU_SDRSTAT_VALUE     0x00000000
-#define __PCON0_INIT            1
-#define __PCON0_VALUE           0
-#define __DCON0_INIT            1
-#define __DCON0_VALUE           0
-
+#define __SBCU_CON_VALUE        0x00000000
+ 
 #endif /*__NO_CSTART_REGISTER_CONFIG */
 
-#endif /* CSTART_H */
+#endif /* CSTART_H*/
