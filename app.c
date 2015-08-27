@@ -54,17 +54,15 @@ void thread2(void* arg) {
     }
 }
 
-signed int main(void) {
+void start_os(void) {
 
    // printf("Example 1: Creates 2 threads with round-robin policy.\n");
 
-    pll_init();
     pthread_create_np(th1, NULL, thread1, (void*)1);
     //pthread_create_np(th2, NULL, thread2, (void*)2);
 
     //pthread_schedrr_init_np(); // round-robin scheduling requires a timer
     pthread_start_np();
-    //while(1);
 }
 
 
