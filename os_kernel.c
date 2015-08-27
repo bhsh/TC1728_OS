@@ -34,10 +34,6 @@ static void list_append(pthread_t *head, pthread_t elem, pthread_t list_prev,
     }
 }
 
-context_t *cx_test;
-uint32_t fcx_test;
-pthread_t thread_test;
-uint32_t lcx_test;
 int pthread_create_np(pthread_t thread, //!< [in] thread control block pointer.
         const pthread_attr_t *attr, //!<  [in] thread attribute. Can be NULL to use default.
         void(*start_routine)(void *),//!<  [in] thread function pointer
@@ -47,16 +43,13 @@ int pthread_create_np(pthread_t thread, //!< [in] thread control block pointer.
     const pthread_attr_t default_attr = PTHREAD_DEFAULT_ATTR;
     uint32_t fcx;
     context_t *cx;
-    cx_test=cx;
 
     if (attr == NULL)
         attr = &default_attr;
 
-    fcx = __mfcr(0xfe38);
-    fcx_test=fcx;
+    fcx = __mfcr(FCX);
     thread->lcx = fcx - 1;
-    lcx_test=thread->lcx;
-    __mtcr(0xfe38, fcx - 2);
+    __mtcr(FCX, fcx - 2);
 
     cx = cx_to_addr(fcx);
     cx->u.psw = 0 << 12 // Protection Register Set PRS=0
@@ -77,10 +70,10 @@ int pthread_create_np(pthread_t thread, //!< [in] thread control block pointer.
     cx->l.a4 = arg;
     thread->arg = arg;
 
-    //uint32_t i = thread->priority;
-    //list_append(&pthread_runnable_threads[i], thread, thread,
-    //        pthread_runnable_threads[i]);
-    //__putbit(1,(int*)&pthread_runnable,i); // mark current thread ready
-    thread_test=thread;
+    uint32_t i = thread->priority;
+    list_append(&pthread_runnable_threads[i], thread, thread,
+            pthread_runnable_threads[i]);
+    __putbit(1,(int*)&pthread_runnable,i); // mark current thread ready
+
     return 0;
 }

@@ -75,7 +75,7 @@ inline void pthread_start_np(void) {
 
     pthread_t thread;
     //assert(pthread_runnable != 0);
-   // thread = pthread_runnable_threads[31 - __clz(pthread_runnable)]; //  get ready thread with highest priority ready
+    thread = pthread_runnable_threads[31 - __clz(pthread_runnable)]; //  get ready thread with highest priority ready
    // assert(thread);
     //assert(thread->lcx);
 
@@ -87,11 +87,11 @@ inline void pthread_start_np(void) {
    // __enable();
 
    // PTHREAD_SWAP_HANDLER(thread,pthread_running);
-    //pthread_running = thread;//
+    pthread_running = thread;//
     __mtcr(PSW, 0x00000980);        /* clear PSW.IS */
 
     __dsync();
-    __mtcr(0xfe00, lcx_test);
+    __mtcr(PCXI, thread->lcx);
     __rslcx();
     __asm(" mov d2,#0");
     __asm(" rfe");

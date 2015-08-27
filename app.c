@@ -26,6 +26,7 @@
  */
 #include <stdlib.h>
 #include "os_kernel.h"
+#include "MAIN.h"
 //#include "simio.h"
 #include <stdio.h>
 
@@ -33,7 +34,7 @@
 #pragma align 8
 // define thread name, priority, policy, stack size
 PTHREAD_CONTROL_BLOCK(th1,1,SCHED_RR,PTHREAD_DEFAULT_STACK_SIZE)
-//PTHREAD_CONTROL_BLOCK(th2,1,SCHED_RR,PTHREAD_DEFAULT_STACK_SIZE)
+PTHREAD_CONTROL_BLOCK(th2,1,SCHED_RR,PTHREAD_DEFAULT_STACK_SIZE)
 #pragma align restore
 
 void thread1(void* arg) {
@@ -42,6 +43,8 @@ void thread1(void* arg) {
         counter++;
   //      printf("Thread %d counter = %d\n", (int) arg, counter);
         delay_ms(100);
+        IO_vTogglePin(IO_P5_0);
+        IO_vTogglePin(IO_P5_1);
     }
 }
 
@@ -50,7 +53,9 @@ void thread2(void* arg) {
     for (;;) {
         counter++;
  //       printf("Thread %d counter = %d\n", (int) arg, counter);
-        delay_ms(200);
+        delay_ms(300);
+        IO_vTogglePin(IO_P5_2);
+        IO_vTogglePin(IO_P5_3);
     }
 }
 
@@ -59,9 +64,8 @@ void start_os(void) {
    // printf("Example 1: Creates 2 threads with round-robin policy.\n");
 
     pthread_create_np(th1, NULL, thread1, (void*)1);
-    //pthread_create_np(th2, NULL, thread2, (void*)2);
+    pthread_create_np(th2, NULL, thread2, (void*)2);
 
-    //pthread_schedrr_init_np(); // round-robin scheduling requires a timer
     pthread_start_np();
 }
 

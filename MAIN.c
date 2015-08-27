@@ -12,7 +12,7 @@
 // @Description   This file contains the project initialization function.
 //
 //----------------------------------------------------------------------------
-// @Date          8/26/2015 21:42:52
+// @Date          8/27/2015 20:28:36
 //
 //****************************************************************************
 
@@ -118,7 +118,7 @@ volatile unsigned int DummyToForceRead;
 // @Parameters    None
 //
 //----------------------------------------------------------------------------
-// @Date          8/26/2015
+// @Date          8/27/2015
 //
 //****************************************************************************
 
@@ -279,6 +279,12 @@ void MAIN_vInit(void)
   //   -----------------------------------------------------------------------
   //   Initialization of the Peripherals:
   //   -----------------------------------------------------------------------
+  //   initializes the Parallel Ports
+  IO_vInit();
+
+  //   initializes the General Purpose Timer Array 0 (GPTA0)
+  GPTA0_vInit();
+
 
   // USER CODE BEGIN (Init,3)
 
@@ -288,8 +294,8 @@ void MAIN_vInit(void)
   ///  System Start Conditions:
   ///  -----------------------------------------------------------------------
 
-  //// - the CPU interrupt system is globally disabled
-  DISABLE();
+  ///  - the CPU interrupt system is globally enabled
+  ENABLE();
 
   //// - the PCP interrupt system is globally disabled
 
@@ -316,7 +322,7 @@ void MAIN_vInit(void)
 //                Value for the WDTCON0 register
 //
 //----------------------------------------------------------------------------
-// @Date          8/26/2015
+// @Date          8/27/2015
 //
 //****************************************************************************
 
@@ -371,7 +377,7 @@ void MAIN_vWriteWDTCON0(uword uwValue)
 // @Parameters    None
 //
 //----------------------------------------------------------------------------
-// @Date          8/26/2015
+// @Date          8/27/2015
 //
 //****************************************************************************
 
@@ -384,11 +390,58 @@ sword main(void)
   sword swReturn;
 
   // USER CODE BEGIN (Main,2)
-  MAIN_vInit();
+
   // USER CODE END
 
-       // extern int pll_init(void);
-       // pll_init();
+  swReturn = 0;
+
+  switch(RESET_INDICATOR)
+  {
+    case WATCHDOG_RESET:         //  the last reset was a watchdog triggered
+                                 //  (hardware) reset
+
+         // USER CODE BEGIN (Main,3)
+
+         // USER CODE END
+
+    case SOFTWARE_RESET:         //  the last reset was an internally 
+                                 //  triggered software reset
+
+         // USER CODE BEGIN (Main,4)
+
+         // USER CODE END
+
+    case ESR0_RESET:             //  the last reset was an externally 
+                                 //  triggered hardware reset (#ESR0 pin)
+
+         // USER CODE BEGIN (Main,4.1)
+
+         // USER CODE END
+
+    case ESR1_RESET:             //  the last reset was an externally 
+                                 //  triggered hardware reset (#ESR1 pin)
+
+         // USER CODE BEGIN (Main,4.2)
+
+         // USER CODE END
+
+    case POWERON_RESET:          //  the last reset was an externally
+                                 //  triggered power on reset (#POR pin)
+
+         // USER CODE BEGIN (Main,5)
+
+         // USER CODE END
+
+    default:
+
+         // USER CODE BEGIN (Main,6)
+
+         // USER CODE END
+
+         MAIN_vInit();
+  }
+
+
          // USER CODE BEGIN (Main,7)
 
         start_os();
