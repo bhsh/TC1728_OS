@@ -379,23 +379,28 @@ void MAIN_vWriteWDTCON0(uword uwValue)
 
 // USER CODE END
 
-sword main(void)
-{
-  sword swReturn;
+//sword main(void)
+//{
+//  sword swReturn;
 
   // USER CODE BEGIN (Main,2)
 
   // USER CODE END
 
        // extern int pll_init(void);
-        pll_init();
+        //pll_init();
          // USER CODE BEGIN (Main,7)
-        start_os();
+        //pthread_create_np(th1, NULL, thread1, (void*)1);
+        //pthread_create_np(th2, NULL, thread2, (void*)2);
+
+        //pthread_schedrr_init_np(); // round-robin scheduling requires a timer
+        //pthread_start_np();
+        //start_os();
          // USER CODE END
 
-  return(swReturn);
+//  return(swReturn);
 
-} //  End of function main
+//} //  End of function main
 
 
 
