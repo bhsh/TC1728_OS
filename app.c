@@ -48,6 +48,9 @@ void thread1(void* arg) {
     }
 }
 
+int thread2_read_trap_return;
+int thread2_test_counter;
+
 void thread2(void* arg) {
     uint32_t volatile counter = 0;
     for (;;) {
@@ -56,6 +59,9 @@ void thread2(void* arg) {
         delay_ms(300);
         IO_vTogglePin(IO_P5_2);
         IO_vTogglePin(IO_P5_3);
+
+        thread2_read_trap_return=call_trap6_interface();
+        thread2_test_counter++;
     }
 }
 

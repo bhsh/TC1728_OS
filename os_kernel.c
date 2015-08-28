@@ -8,6 +8,13 @@
 
 #include "os_kernel.h"
 
+
+
+/* define the system call that is the 6th trap of CPU */
+__syscallfunc(1) int syscall_a( int, int );
+__syscallfunc(2) int syscall_b( int, int );
+
+
 //! Bit number is index into pthread_runnable_threads.
  uint32_t pthread_runnable;
 //! Currently running thread
@@ -76,4 +83,45 @@ int pthread_create_np(pthread_t thread, //!< [in] thread control block pointer.
     __putbit(1,(int*)&pthread_runnable,i); // mark current thread ready
 
     return 0;
+}
+
+int __trap( 6 ) trap6( int a, int b ) // trap class 6 handler
+{
+    int tin;
+    __asm("mov %0,d15" : "=d"(tin)); // put d15 in C variable tin
+    switch( tin )
+    {
+    case 1:
+         a += b;
+         break;
+    case 2:
+         a -= b;
+         break;
+    default:
+         break;
+    }
+    return a;
+}
+/***********************************************************************************
+ * function name:
+ *                main_call_trap6_interface
+ * return type:
+ *                int
+ *
+ ***********************************************************************************/
+
+int x_test_buffer;
+int call_trap6_test_counter;
+
+
+int call_trap6_interface(void)
+{
+    int x;
+	x = syscall_a(1,2);  // causes a trap class 6 with TIN = 1
+	//x = syscall_b(4,3); // causes a trap class 6 with TIN = 2
+
+	x_test_buffer=x;
+	call_trap6_test_counter++;
+
+   return x;
 }

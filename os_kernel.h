@@ -152,4 +152,7 @@ inline void delay_ms(uint32_t _milliseconds) {
             ::"a"((_milliseconds*80)/2): "a15","d15");
 }
 
+/* The functions are called by app */
+int call_trap6_interface(void);
+
 #endif /* OS_KERNEL_H_ */
