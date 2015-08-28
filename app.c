@@ -42,9 +42,11 @@ void thread1(void* arg) {
     for (;;) {
         counter++;
   //      printf("Thread %d counter = %d\n", (int) arg, counter);
-        delay_ms(100);
+        delay_ms(50);
         IO_vTogglePin(IO_P5_0);
         IO_vTogglePin(IO_P5_1);
+
+        switch_context();
     }
 }
 
@@ -56,12 +58,14 @@ void thread2(void* arg) {
     for (;;) {
         counter++;
  //       printf("Thread %d counter = %d\n", (int) arg, counter);
-        delay_ms(300);
+        delay_ms(50);
         IO_vTogglePin(IO_P5_2);
         IO_vTogglePin(IO_P5_3);
 
-        thread2_read_trap_return=call_trap6_interface();
+        call_trap6_interface();
         thread2_test_counter++;
+
+        switch_context();
     }
 }
 

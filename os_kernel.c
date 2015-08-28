@@ -13,6 +13,7 @@
 /* define the system call that is the 6th trap of CPU */
 __syscallfunc(1) int syscall_a( int, int );
 __syscallfunc(2) int syscall_b( int, int );
+__syscallfunc(3) int syscall_c( int, int );
 
 
 //! Bit number is index into pthread_runnable_threads.
@@ -85,11 +86,29 @@ int pthread_create_np(pthread_t thread, //!< [in] thread control block pointer.
     return 0;
 }
 
-int __trap( 6 ) trap6( int a, int b ) // trap class 6 handler
+void trap6_call(void) {
+    pthread_t thread;
+    pthread_running->lcx = __mfcr(PCXI);
+    thread = pthread_running->next; // get next thread with same priority
+    pthread_runnable_threads[thread->priority] = thread;
+
+    pthread_running = thread;
+    __dsync(); // required before PCXI manipulation (see RTOS porting guide)
+    __mtcr(PCXI, thread->lcx);
+    __asm("ji a11");
+}
+
+void __trap( 6 ) trap6( int a, int b ) // trap class 6 handler
 {
-    int tin;
-    __asm("mov %0,d15" : "=d"(tin)); // put d15 in C variable tin
-    switch( tin )
+   // int tin;
+   // __asm("mov %0,d15 \n"
+   // 	  "svlcx        ": "=d"(tin)); // put d15 in C variable tin
+
+      __asm(  " svlcx        \n"
+              " jla trap6_call \n"
+    		  " rslcx"::"a"(pthread_running->next));
+
+   /* switch( tin )
     {
     case 1:
          a += b;
@@ -97,10 +116,13 @@ int __trap( 6 ) trap6( int a, int b ) // trap class 6 handler
     case 2:
          a -= b;
          break;
+    case 3:
+         break;
     default:
          break;
-    }
-    return a;
+    } */
+
+    //pthread_start_np();
 }
 /***********************************************************************************
  * function name:
@@ -114,14 +136,25 @@ int x_test_buffer;
 int call_trap6_test_counter;
 
 
-int call_trap6_interface(void)
+void call_trap6_interface(void)
 {
-    int x;
-	x = syscall_a(1,2);  // causes a trap class 6 with TIN = 1
+	//syscall_a(1,2);  // causes a trap class 6 with TIN = 1
 	//x = syscall_b(4,3); // causes a trap class 6 with TIN = 2
 
-	x_test_buffer=x;
+	//x_test_buffer=x;
+
 	call_trap6_test_counter++;
 
-   return x;
+}
+
+/***********************************************************************************
+ * function name:
+ *                switch_context
+ * return type:
+ *                int
+ *
+ ***********************************************************************************/
+void switch_context(void)
+{
+	syscall_c(1,2);  // causes a trap class 6 with TIN = 1
 }
